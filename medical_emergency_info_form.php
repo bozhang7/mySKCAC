@@ -1,4 +1,5 @@
 <?php
+    // Bo is working on this file, DO NOT modify.
     include 'error_report.php';
 ?>
 
@@ -24,6 +25,7 @@
         <?php
             $name = $date = $homeAddress = $phone = $email = "";
             $nameErr = $dateErr = $homeAddressErr = $phoneErr = $emailErr = $error = "";
+            $success = "";
 
             if ($_SERVER["REQUEST_METHOD"] == "POST")
             {
@@ -85,23 +87,65 @@
         <h2>MEDICAL & EMERGENCY INFORMATION</h2>
         <p><span class="error">* required field</span></p>
         <form action="" method="post">
+            <!-- form group 1: participant -->
             <label>Participant: <input type="text" name="name" value="<?php echo $name; ?>"></label><span class="error"> * <?php echo $nameErr; ?></span><br>
             <label>Date: <input type="text" name="date" placeholder="YYYY-MM-DD" value="<?php echo $date; ?>"></label><span class="error"> * <?php echo $dateErr; ?></span><br>
             <label>Home Address: <input type="text" name="home" value="<?php echo $homeAddress; ?>"</label><br>
             <label>Phone: <input type="text" name="phone" placeholder="E.g. 123-456-7890" value="<?php echo $phone; ?>"></label><span class="error"> <?php echo $phoneErr; ?></span><br>
-            <label>E-mail: <input type="text" name="email" placeholder="example@email.com" value="<?php echo $email; ?>"></label><span class="error"> <?php echo $emailErr; ?></span><br>
+            <label>E-mail: <input type="text" name="email" placeholder="example@email.com" value="<?php echo $email; ?>"></label><span class="error"> <?php echo $emailErr; ?></span><br><br>
+
+            <!-- form group 2: residential provider -->
+            <label>Residential Provider: <input type="text" name="residentialProvider"></label><br>
+            <label>Phone: <input type="text" name="providerPhone"></label><br>
+            <label>Address: <input type="text" name="providerAddress"></label><br>
+            <label>E-mail: <input type="text" name="providerEmail"></label><br><br>
+
+            <!-- form group 3: guardian -->
+            <label>Guardian: <input type="text" name="guardian"></label><br>
+            <label>Phone: <input type="text" name="guardianPhone"></label><br>
+            <label>Address: <input type="text" name="guardianAddress"></label><br>
+            <label>E-mail: <input type="text" name="guardianEmail"></label><br><br>
+
+            <!-- form group 4: NSA(client rep.) -->
+            <label>NSA(Client Rep.): <input type="text" name="nsa"></label><br>
+            <label>Phone: <input type="text" name="nsaPhone"></label><br>
+            <label>Address: <input type="text" name="nsaAddress"></label><br>
+            <label>E-mail: <input type="text" name="nsaEmail"></label><br><br>
+
+            <!-- form group 5: emergency contact -->
+            <label>Emergency Contact: <input type="text" name="emergContact"></label><br>
+            <label>Emerg. Phone: <input type="text" name="emergPhone"></label><br>
+            <label>Alternate Emergency Phone: <input type="text" name="alterEmergPhone"></label><br><br>
+
+            <!-- form group 6: medical alerts, physical limitations, diet restrictions -->
+            <label>Medical Alerts<textarea name="medicalAlerts"></textarea></label><br>
+            <label>Physical Limitations<textarea name="physicalLimitations"></textarea></label><br>
+            <label>Diet Restrictions<textarea name="dietRestrictions"></textarea></label><br><br>
+
+            <!-- todo: form group 7: medications -->
+
             <input type="submit" name="submit" value="Submit">
+            <?php
+                if ($_SERVER["REQUEST_METHOD"] == "POST" && $error == "")
+                {
+                    $success = "<span style=\"color: green; \">Successfully</span>";
+                    echo $success;
+                }
+            ?>
         </form>
 
         <?php
+            // if the form is submitted and there is no error, print the updated info and send it to the email
             if ($_SERVER["REQUEST_METHOD"] == "POST" && $error == "")
             {
+                /*
                 echo "<h2>Your updated info: </h2>";
                 echo "<Strong>Participant:</Strong> $name<br>";
                 echo "<Strong>Date:</Strong> $date<br>";
                 echo "<Strong>Home Address:</Strong> $homeAddress<br>";
                 echo "<Strong>Phone:</Strong> $phone<br>";
                 echo "<Strong>E-mail:</Strong> $email<br>";
+                */
 
                 $recipient = "bbx719@hotmail.com";
                 $subject = "$name Just Updated 'MEDICAL & EMERGENCY INFORMATION' form";
